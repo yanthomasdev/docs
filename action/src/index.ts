@@ -106,11 +106,14 @@ async function getTrackedFilesTable(
 			}
 		};
 
+		const fullStatus = await lunaria.getFullStatus();
+
 		try {
-			const fileStatus = await lunaria.getFileStatus(rootlessFilename);
-			if (fileStatus === undefined) {
-				core.error('file status is undefined');
-			}
+			const fileStatus = fullStatus.find(
+				(f) =>
+					f.source.path === rootlessFilename ||
+					f.localizations.findIndex((l) => l.path === rootlessFilename) !== -1
+			);
 			core.debug(fileStatus?.toString() ?? 'undefined');
 			core.debug("File's status: " + fileStatus?.toString());
 			core.debug("File's status: " + fileStatus?.source?.path);
