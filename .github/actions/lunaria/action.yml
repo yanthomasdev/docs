@@ -4,7 +4,7 @@ author: Yan Thomas
 
 runs:
   using: node20
-  main: ../../action/dist/index.mjs
+  main: dist/index.mjs
 
 inputs:
   token:
