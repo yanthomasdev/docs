@@ -1,0 +1,15 @@
+{
+  "extends": "@total-typescript/tsconfig/tsc/no-dom/library-monorepo",
+  "include": ["src"],
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "moduleDetection": "force",
+    "target": "ES2022",
+    "lib": ["es2022"],
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
+    "declarationMap": true
+  }
+}
