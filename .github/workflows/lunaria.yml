@@ -33,4 +33,4 @@ jobs:
         uses: ./.github/actions/install
 
       - name: Generate Lunaria Overview
-        uses: ./action/dist/index.mjs
+        uses: ./.github/actions/lunaria
