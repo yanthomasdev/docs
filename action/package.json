@@ -37,7 +37,7 @@
     "@changesets/cli": "^2.27.1",
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^20.11.16",
-    "pkgroll": "^2.0.1",
+    "pkgroll": "^2.5.1",
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^3.2.4",
     "typescript": "^5.3.3"
