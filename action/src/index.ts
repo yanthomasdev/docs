@@ -168,7 +168,9 @@ async function main() {
 	const workingDirectory = core.getInput('working-directory');
 	setWorkingDirectory(workingDirectory);
 
-	const lunaria = await createLunaria();
+	const lunaria = await createLunaria({
+		force: true,
+	});
 	const config = lunaria.config;
 
 	const pullRequestContext = {
