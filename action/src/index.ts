@@ -23,6 +23,8 @@ function setWorkingDirectory(workingDirectory?: string) {
 	if (workingDirectory) {
 		try {
 			process.chdir(workingDirectory);
+			core.debug('Working directory: ' + workingDirectory);
+			core.debug(process.cwd());
 		} catch {
 			core.setFailed(
 				`Failed to change working directory to ${workingDirectory}. Is the path correct?`
@@ -106,15 +108,16 @@ async function getTrackedFilesTable(
 
 		try {
 			const fileStatus = await lunaria.getFileStatus(rootlessFilename);
-			core.debug("File's status: " + fileStatus);
+			core.debug(fileStatus?.toString() ?? 'undefined');
+			core.debug("File's status: " + fileStatus?.toString());
 			core.debug("File's status: " + fileStatus?.source?.path);
-			const isSourceLocale = fileStatus?.source.path === rootlessFilename;
+			const isSourceLocale = fileStatus?.source?.path === rootlessFilename;
 
 			const createdDate = new Date(pullRequest.created_at);
 			// Don't go after the latest source change if the source file is part of the PR, assume creation date of PR.
 			// If it wasn't possible to find the latest source change date, we assume it isn't possibly outdated.
 			const latestSourceChange = !isSourceLocale
-				? new Date(fileStatus?.source.git.latestTrackedChange.date ?? Date.now())
+				? new Date(fileStatus?.source?.git?.latestTrackedChange?.date ?? Date.now())
 				: createdDate;
 
 			if (latestSourceChange > createdDate) foundWarnings.push('outdated');
