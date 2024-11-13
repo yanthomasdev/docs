@@ -88,7 +88,7 @@ async function getTrackedFilesTable(
 		const rootlessFilename = unrootFilename(repository.rootDir, file.filename);
 		const collapsedPath = collapseFilename(rootlessFilename);
 
-		core.debug(`Checking file: ${collapsedPath}`);
+		core.debug(`Checking file: ${rootlessFilename}`);
 
 		const statusType = (status: Files[number]['status']) => {
 			// It might be necessary to rethink these according to how Git
@@ -106,6 +106,7 @@ async function getTrackedFilesTable(
 
 		try {
 			const fileStatus = await lunaria.getFileStatus(rootlessFilename);
+			core.debug("File's status: " + fileStatus);
 			core.debug("File's status: " + fileStatus?.source?.path);
 			const isSourceLocale = fileStatus?.source.path === rootlessFilename;
 
@@ -125,7 +126,7 @@ async function getTrackedFilesTable(
 
 			rows.push([`[${collapsedPath}](${file.blob_url})`, note]);
 		} catch (e) {
-			core.error(`Error while processing file: ${collapsedPath}`);
+			core.setFailed(`Error while processing file: ${rootlessFilename}`);
 			if (e instanceof Error) core.error(e);
 		}
 	}
